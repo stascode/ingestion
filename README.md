@@ -1,9 +1,8 @@
-# Ingestion
+# ingress
 
-This project is an experimental refactoring of the Nitrogen service into component services.  This service handles
-message ingestion into a backend MessageHub.
+The ingress server is responsible for authenticating the connecting device, doing protocol termination, and passing on messages to a backend MessageSink provider.
 
-Not ready for production use.
+Not yet ready for production use.
 
 ## Nitrogen Project
 

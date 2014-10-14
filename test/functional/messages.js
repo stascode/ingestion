@@ -17,12 +17,12 @@ describe('messages endpoint', function() {
                 Authorization: 'Bearer ' + fixtures.testJwtToken
             }
         }, function(err, resp, body) {
-            assert.equal(err, null);
+            assert(!err);
             assert.equal(resp.statusCode, 200);
 
             body.messages.forEach(function(message) {
                 assert.equal(message.body.reading, 5.1);
-                assert.notEqual(message.id, null);
+                assert(message.id);
             });
 
             done();

@@ -1,6 +1,6 @@
 var log = require('winston')
   , Loggly = require('winston-loggly').Loggly
-  , providers = require('./providers');
+  , localProviders = require('nitrogen-local-providers');
 
 var config = null;
 
@@ -74,7 +74,7 @@ log.add(log.transports.Console, { colorize: true, timestamp: true, level: 'info'
 config.validate_schemas = true;
 
 // Configure the Message Hub provider to use to push messages to.
-config.message_hub = new providers.local.ProxyMessageHub({
+config.message_hub = new localProviders.ProxyMessageHub({
     messages_endpoint: process.env.PROXY_MESSAGES_ENDPOINT || 'http://localhost:3050/api/v1/messages'
 });
 
