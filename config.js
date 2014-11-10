@@ -30,7 +30,7 @@ if (process.env.NODE_ENV === "production") {
     };
 }
 
-config.internal_port = config.internal_port || 3040;
+config.internal_port = config.internal_port || 3032;
 config.external_port = config.external_port || 443;
 
 config.access_token_signing_key = process.env.ACCESS_TOKEN_SIGNING_KEY || '12345678901234567890123456789012';
