@@ -19,6 +19,7 @@ if (process.env.NODE_ENV === "production") {
         internal_port: 3052,
         protocol: 'http',
         mongodb_connection_string: "mongodb://localhost/nitrogen_test",
+        proxy_messages_endpoint: "http://localhost:3053/api/v1/messages",
         web_admin_uri: "http://localhost:9000"
     };
 } else {
@@ -26,6 +27,7 @@ if (process.env.NODE_ENV === "production") {
         external_port: 3032,
         protocol: 'http',
         mongodb_connection_string: "mongodb://localhost/nitrogen_dev",
+        proxy_messages_endpoint: "http://localhost:3033/api/v1/messages",
         web_admin_uri: "http://localhost:9000"
     };
 }
@@ -75,7 +77,7 @@ config.validate_schemas = true;
 
 // Configure the Message Hub provider to use to push messages to.
 config.message_hub = new localProviders.ProxyMessageHub({
-    messages_endpoint: process.env.PROXY_MESSAGES_ENDPOINT || 'http://localhost:3053/api/v1/messages'
+    messages_endpoint: config.proxy_messages_endpoint || process.env.PROXY_MESSAGES_ENDPOINT || 'http://localhost:3033/api/v1/messages'
 });
 
 module.exports = config;
