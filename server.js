@@ -41,4 +41,4 @@ server.listen(config.internal_port);
 app.get(config.ops_path + '/health', controllers.ops.health);
 app.post(config.messages_path, middleware.accessTokenRelay, controllers.messages.create);
 
-log.info("ingestion service has initialized and exposed api at: " + config.api_endpoint);
+log.info("ingestion service has initialized and exposed external api at: " + config.api_endpoint + " on internal port: " + config.internal_port);
