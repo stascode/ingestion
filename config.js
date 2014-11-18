@@ -7,7 +7,7 @@ var config = null;
 if (process.env.NODE_ENV === "production") {
     config = {
         internal_port: process.env.PORT,
-        protocol: 'http'
+        protocol: 'https'
     };
 
     if (!process.env.ACCESS_TOKEN_SIGNING_KEY) {
