@@ -7,6 +7,7 @@ var config = null;
 if (process.env.NODE_ENV === "production") {
     config = {
         internal_port: process.env.PORT,
+        protocol: 'http'
     };
 
     if (!process.env.ACCESS_TOKEN_SIGNING_KEY) {
@@ -76,6 +77,9 @@ log.add(log.transports.Console, { colorize: true, timestamp: true, level: 'info'
 config.validate_schemas = true;
 
 // Configure the Message Hub provider to use to push messages to.
+
+console.log('PROXY_MESSAGES_ENDPOINT: ' + process.env.PROXY_MESSAGES_ENDPOINT);
+
 config.message_hub = new localProviders.ProxyMessageHub({
     messages_endpoint: config.proxy_messages_endpoint || process.env.PROXY_MESSAGES_ENDPOINT || 'http://localhost:3033/api/v1/messages'
 });
