@@ -1,6 +1,13 @@
 # Ingestion
 
-This server provides message ingestion services to Nitrogen clients.
+This server provides message ingestion services for Nitrogen clients.
+
+## Installation
+
+1. `git clone https://github.com/nitrogenjs/frontdoor`
+2. `cd frontdoor`
+3. `npm install`
+4. `node server.js`
 
 ## How to contribute
 
