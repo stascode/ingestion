@@ -1,0 +1,8 @@
+{
+  "serviceBusHost": "<servicebus namespace without '.servicebus.windows.net'>",
+  "SASKeyName":"<create a key in the event hub and specify key name here>",
+  "SASKey":"<key value>",
+  "eventHubName":"<event hub name>",
+  "tableStoreName":"<azure storage account name (not table!)>",
+  "tableStoreKey":"<azure storage account key>"
+}

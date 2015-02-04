@@ -30,6 +30,9 @@ if (process.env.NODE_ENV === "production") {
         mongodb_connection_string: "mongodb://localhost/nitrogen_dev",
         proxy_messages_endpoint: "http://localhost:3033/api/v1/messages",
         web_admin_uri: "http://localhost:9000"
+
+        // uncomment to enable eventhub
+        //, message_hub: "eventhub" // 'eventhub'
     };
 }
 
@@ -80,8 +83,27 @@ config.validate_schemas = true;
 
 console.log('PROXY_MESSAGES_ENDPOINT: ' + process.env.PROXY_MESSAGES_ENDPOINT);
 
-config.message_hub = new localProviders.ProxyMessageHub({
-    messages_endpoint: config.proxy_messages_endpoint || process.env.PROXY_MESSAGES_ENDPOINT || 'http://localhost:3033/api/v1/messages'
-});
+if (config.message_hub === 'eventhub') {
+
+    // create the file eventhub_config.json and don't add it to the repo
+    config.eventhub_config = require('./eventhub_config.json');
+
+    // TODO require() change to npm package
+    var azureProviders = require('../providers/azure/lib/messageHub')
+    config.message_hub = {
+        eventHub: new azureProviders(config.eventhub_config),
+        send: function(context, messages, callback) {
+            config.message_hub.eventHub.send(messages, function(err) {
+                callback(err, []);
+            });
+        }
+    };
+
+    console.log('Using Azure EventHub:', config.eventhub_config.eventHubName)
+} else {
+    config.message_hub = new localProviders.ProxyMessageHub({
+        messages_endpoint: config.proxy_messages_endpoint || process.env.PROXY_MESSAGES_ENDPOINT || 'http://localhost:3033/api/v1/messages'
+    });
+}
 
 module.exports = config;
